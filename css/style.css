@@ -1,0 +1,183 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #1b1f27;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Bingkai HP */
+.phone {
+  width: 360px;
+  height: 740px;
+  padding: 12px;
+  background: #0a0a0a;
+  border-radius: 44px;
+  box-shadow: 0 0 0 2px #3a3f4a, 0 24px 60px rgba(0, 0, 0, .5);
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 34px;
+  background: linear-gradient(160deg, #2b5876, #4e4376 60%, #c06c84);
+  color: #fff;
+}
+
+/* Status bar */
+.statusbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  height: 36px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+}
+.camera {
+  position: absolute;
+  left: 50%; top: 10px;
+  width: 14px; height: 14px;
+  transform: translateX(-50%);
+  background: #000;
+  border-radius: 50%;
+}
+.status-right { display: flex; gap: 8px; font-size: 12px; }
+
+/* Home screen */
+.home {
+  position: absolute;
+  inset: 0 0 52px 0;
+  padding: 56px 18px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.widget { text-align: center; margin-bottom: 28px; }
+.widget-time { font-size: 56px; font-weight: 300; }
+.widget-date { font-size: 14px; opacity: .85; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px 8px;
+}
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.app-icon .icon {
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 16px;
+  font-size: 26px;
+  background: rgba(255, 255, 255, .18);
+  backdrop-filter: blur(6px);
+  transition: transform .15s;
+}
+.app-icon:active .icon { transform: scale(.9); }
+
+/* Layar aplikasi */
+.app-screen {
+  position: absolute;
+  inset: 0 0 52px 0;
+  padding-top: 36px;
+  background: #fafafa;
+  color: #1c1c1c;
+  display: flex;
+  flex-direction: column;
+  transform: scale(.85);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.app-screen.open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.app-header {
+  padding: 16px 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.app-body { flex: 1; padding: 0 20px 20px; overflow: auto; }
+
+/* Status bar gelap saat aplikasi terbuka */
+.screen.in-app .statusbar { color: #1c1c1c; }
+
+/* Navigation bar */
+.navbar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 52px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(0, 0, 0, .35);
+}
+.screen.in-app .navbar { background: #fafafa; }
+.navbar button {
+  width: 60px; height: 40px;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.screen.in-app .navbar button { color: #1c1c1c; }
+
+@media (max-width: 420px) {
+  .phone { width: 100vw; height: 100vh; border-radius: 0; padding: 0; box-shadow: none; }
+  .screen { border-radius: 0; }
+}
+
+/* Mode aplikasi tanpa header (mis. Telepon) */
+.app-screen.bare .app-header { display: none; }
+.app-screen.bare .app-body { padding: 0; overflow: hidden; }
+.app-body { position: relative; }
+
+/* Saat panggilan berlangsung */
+.screen.in-app.in-call .app-screen { background: #232a3b; }
+.screen.in-app.in-call .statusbar { color: #fff; }
+.screen.in-app.in-call .navbar { background: #12151d; }
+.screen.in-app.in-call .navbar button { color: #fff; }
+
+/* Indikator panggilan di status bar */
+.status-left { display: flex; align-items: center; gap: 8px; }
+#call-pill { padding: 2px 8px; border: 0; border-radius: 12px; background: #0b8043; color: #fff; font: inherit; font-size: 11px; cursor: pointer; }
+#call-pill[hidden] { display: none; }
+
+/* Badge notifikasi di ikon aplikasi */
+.app-icon .icon { position: relative; }
+.app-icon .badge { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: #d93025; color: #fff; font-size: 11px; font-style: normal; font-weight: 700; line-height: 18px; text-align: center; }
+.app-icon .badge[hidden] { display: none; }
+
+/* Notifikasi pop-up di atas layar */
+#heads-up { position: absolute; top: 40px; left: 10px; right: 10px; z-index: 30; display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 18px; background: #fff; color: #1c1b1f; box-shadow: 0 6px 20px rgba(0, 0, 0, .35); cursor: pointer; animation: hu-in .25s ease; }
+#heads-up[hidden] { display: none; }
+#heads-up b { display: block; font-size: 13px; }
+#heads-up span:last-child { display: block; font-size: 13px; color: #5f6368; }
+#heads-up .hu-text { min-width: 0; }
+#heads-up .hu-text > * { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@keyframes hu-in { from { transform: translateY(-20px); opacity: 0; } }
+
+/* Aplikasi bertema gelap (Kamera, penampil Galeri) */
+.screen.in-app.app-dark .app-screen { background: #000; }
+.screen.in-app.app-dark .statusbar { color: #fff; }
+.screen.in-app.app-dark .navbar { background: #000; }
+.screen.in-app.app-dark .navbar button { color: #fff; }

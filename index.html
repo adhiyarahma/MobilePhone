@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MobilePhone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/phone.css">
+  <link rel="stylesheet" href="css/messages.css">
+  <link rel="stylesheet" href="css/camera.css">
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+  <div class="phone">
+    <div class="screen" id="screen">
+
+      <!-- Status bar -->
+      <div class="statusbar">
+        <span class="status-left"><span id="clock">00:00</span><button id="call-pill" hidden></button></span>
+        <span class="camera"></span>
+        <span class="status-right">
+          <span>📶</span>
+          <span id="battery">🔋 100%</span>
+        </span>
+      </div>
+
+      <!-- Home screen -->
+      <div class="home" id="home">
+        <div class="widget">
+          <div class="widget-time" id="widget-time">00:00</div>
+          <div class="widget-date" id="widget-date"></div>
+        </div>
+        <div class="grid" id="app-grid"></div>
+      </div>
+
+      <!-- Layar aplikasi -->
+      <div class="app-screen" id="app-screen">
+        <div class="app-header" id="app-title"></div>
+        <div class="app-body" id="app-body"></div>
+      </div>
+
+      <div id="heads-up" hidden></div>
+
+      <!-- Navigation bar -->
+      <div class="navbar">
+        <button id="btn-back" aria-label="Kembali">◁</button>
+        <button id="btn-home" aria-label="Home">○</button>
+        <button id="btn-recent" aria-label="Recent">□</button>
+      </div>
+
+    </div>
+  </div>
+  <script src="js/apps/phone.js"></script>
+  <script src="js/apps/messages.js"></script>
+  <script src="js/apps/photos.js"></script>
+  <script src="js/apps/camera.js"></script>
+  <script src="js/apps/gallery.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
